@@ -288,9 +288,12 @@ def make_halfmax_plots(marker, input_dir, output_dir):
     if not os.path.exists(ouput_plots_folder):
         os.makedirs(ouput_plots_folder)
 
-    OUT_DF = pd.DataFrame(columns=['Gene', 'Marker', 'Half_max_calc', 
-                                   'Max', 'Min', 'Slope', 'Lag', 'R2',
-                                   'Func_inflect', 'Func_max', 'Func_min', 'Func_slope'])
+    #OUT_DF = pd.DataFrame(columns=['Gene', 'Marker', 'Half_max_calc', 
+    #                               'Max', 'Min', 'Slope', 'Lag', 'R2',
+    #                               'Func_inflect', 'Func_max', 'Func_min', 'Func_slope'])
+    
+    OUT_DF = pd.DataFrame(columns=['Gene', 'Marker', 'Half_max_calc'])
+    
     this_row = 0
     for gene in genes:
         i=0
@@ -302,9 +305,10 @@ def make_halfmax_plots(marker, input_dir, output_dir):
         half_max_calc, maxx, minn, slope, lag, R2 = func_values
         inflect, max_f, min_f, slope_f = char
 
-        OUT_DF.loc[this_row,] = [gene, marker, half_max_calc,
-                                 maxx, minn, slope, lag, R2,
-                                 inflect, max_f, min_f, slope_f]
+        #OUT_DF.loc[this_row,] = [gene, marker, half_max_calc,
+        #                         maxx, minn, slope, lag, R2,
+        #                         inflect, max_f, min_f, slope_f]
+        OUT_DF.loc[this_row,] = [gene, marker, half_max_calc]
         this_row += 1
 
         # Plot
@@ -341,7 +345,7 @@ def make_halfmax_plots(marker, input_dir, output_dir):
         fig = plt.gcf()
         fig.savefig(f"{ouput_plots_folder}/GPR_noise_fitcell_{gene}.png", bbox_inches='tight')
         plt.close(fig)
-        OUT_DF.to_csv(f"{output_dir}/{marker}/Logistic_curve_fitting_cellnum_GPR_noise.csv", index = False)
+        OUT_DF.to_csv(f"{output_dir}/{marker}/sigmoid_curve_fitting_cellnum_GPR_noise.csv", index = False)
         
 
 if __name__ == '__main__':
